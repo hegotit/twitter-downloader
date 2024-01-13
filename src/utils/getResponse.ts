@@ -42,12 +42,12 @@ const millsToMinutesAndSeconds = (millis: number) => {
 export const TwitterDL = (url: string, config?: Config): Promise<Twitter> =>
     new Promise(async (resolve, reject) => {
         const id = url.match(/\/([\d]+)/);
-        const regex = /^(https?:\/\/)?(www\.)?(m\.)?twitter\.com\/\w+/;
+        const regex = /^(https?:\/\/)?(www\.)?(m\.)?(twitter|x)\.com\/\w+/;
         /** Validate */
         if (!regex.test(url)) return reject("Invalid twitter url!");
         if (!id) return reject("There was an error getting twitter id. Make sure your twitter url is correct!");
         const guest_token = await getGuestToken();
-        const csrf_token = config?.cookie ? config.cookie.match(/(?:^|; )ct0=([^;]*)/) : "";
+        const csrf_token = config?.cookie ? config.cookie.match(/(?:^|; |;)ct0=([^;]*)/) : "";
         if (!guest_token)
             return resolve({
                 status: "error",
