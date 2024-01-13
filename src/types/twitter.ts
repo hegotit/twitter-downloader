@@ -1,3 +1,5 @@
+import { RawAxiosRequestHeaders } from "axios";
+
 export interface Twitter {
     status: "success" | "error";
     message?: string;
@@ -14,6 +16,7 @@ export interface Twitter {
         statistics: Statistics;
         media: Media[];
     };
+    cookie4SensitiveContent?: string;
 }
 
 export interface Statistics {
@@ -58,4 +61,28 @@ export interface VideoVariants {
     content_type: string;
     quality: string;
     url: string;
+}
+
+export type Config = {
+    authorization: string;
+    cookie: string;
+    useProxy: boolean;
+    proxyHost: string;
+    proxyPort: number;
+};
+
+export interface Credentials {
+    username: string;
+    password: string;
+    verificationCode: string;
+}
+
+export interface TwitterRequestHeaders extends RawAxiosRequestHeaders {
+    Connection: string;
+    "x-csrf-token": string;
+    "X-Guest-Token": string;
+    "X-Twitter-Auth-Type": string;
+    "X-Twitter-Active-User": string;
+    "X-Twitter-Client-Language": string;
+    cookie: string;
 }
